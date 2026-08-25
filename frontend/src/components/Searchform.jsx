@@ -1,64 +1,85 @@
-import React from 'react'
-import { useState } from 'react'
+import React from "react";
+import { useState } from "react";
 
 const Searchform = () => {
-    const [state, setState] = useState({
-        origin: "",
-        destination: "",
-        departureDate: "",
-        cabinClass: ""
-      })
-    
-      const handleChange = (e) =>{
-        setState(prev => ({ ...prev, [e.target.name]: e.target.value }));
-      }
+  const [state, setState] = useState({
+    origin: "",
+    destination: "",
+    departureDate: "",
+    cabinClass: "",
+  });
+
+
+
+  const handleChange = (e) => {
+    setState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+    const handleSubmit = async (e) =>{
+    e.preventDefault();
+    const url = "http://localhost:4000/api/flights/search"
+    try{
+        const response = await fetch(url,{
+            method: "POST",
+            body:JSON.stringify(state),
+            headers: { "Content-Type": "application/json" }
+        });
+        if(!response.ok){
+            throw new error(`Response status: ${response.status}`);
+        };
+        const result = await response.json();
+        console.log(result)
+    }catch(error){
+        console.error(error.message);
+
+        
+    }
+
+  }
   return (
     <>
-    <form className=" flex gap-1.5">
-          <input
-            className="w-full border text-center rounded-sm"
-            type="text"
-            placeholder="Origin"
-            name="origin"
-            value ={state.origin}
-            onChange={handleChange}
-
-          />
-          <input
-            className="w-full border text-center rounded-sm"
-            type="text"
-            placeholder="Destination"
-            name="destination"
-            value = {state.destination}
-            onChange={handleChange}
-
-          />
-          <input
-            type="date"
-            name="departureDate"
-            className="w-full border text-center rounded-sm"
-            value = {state.departureDate}
-            onChange={handleChange}
-          />
-          <select
-            className="w-full border text-center rounded-sm"
-            name="cabinClass"
-            value = {state.cabinClass}
-            onChange={handleChange}
-          >
-            <option value="economy">Economy</option>
-            <option value="premium_economy">Premium Economy</option>
-            <option value="business">Business</option>
-            <option value="first">First</option>
-          </select>
-          <button className="border p-2 hover:bg-gray-300 " type="submit">
+      <form className=" flex gap-1.5"
+      onSubmit={handleSubmit}>
+        <input
+          className="w-full border text-center rounded-sm"
+          type="text"
+          placeholder="Origin"
+          name="origin"
+          value={state.origin}
+          onChange={handleChange}
+        />
+        <input
+          className="w-full border text-center rounded-sm"
+          type="text"
+          placeholder="Destination"
+          name="destination"
+          value={state.destination}
+          onChange={handleChange}
+        />
+        <input
+          type="date"
+          name="departureDate"
+          className="w-full border text-center rounded-sm"
+          value={state.departureDate}
+          onChange={handleChange}
+        />
+        <select
+          className="w-full border text-center rounded-sm"
+          name="cabinClass"
+          value={state.cabinClass}
+          onChange={handleChange}
+        >
+          <option value="economy">Economy</option>
+          <option value="premium_economy">Premium Economy</option>
+          <option value="business">Business</option>
+          <option value="first">First</option>
+        </select>
+        <button className="border p-2 hover:bg-gray-300 " type="submit">
           {" "}
           Search
         </button>
-        </form>
-    
-        </>
-  )
-}
+      </form>
+    </>
+  );
+};
 
-export default Searchform
+export default Searchform;
