@@ -14,7 +14,7 @@ router.post('/search',async (req,res)=>{
     try {
 
         //prepping variables for post request destructure
-        const { origin,destination,departure_date,cabin_class} = req.body;
+        const { origin,destination,departureDate,cabinClass} = req.body;
 
         //making our call to get offer based on destructured req.body
         const offers = await duffel.offerRequests.create({
@@ -22,11 +22,11 @@ router.post('/search',async (req,res)=>{
           {
             origin,
             destination,
-            departure_date
+            departure_date: departureDate
           },
         ],
         passengers: [{ type: "adult" }],
-        cabin_class,
+        cabin_class:cabinClass,
       })
 
       //sending retrieved offers to front end
