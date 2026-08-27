@@ -9,11 +9,6 @@ const Navbar = () => {
         <SiTheplanetarysociety className="text-2xl" />{" "}
         <h1 className="text-lg">FlightQ</h1>
       </div>
-
-      <div className="flex gap-1.5 ">
-        <Searchform />
-      </div>
-
       <div className="w-24" aria-hidden="true" />
     </nav>
   );
