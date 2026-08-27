@@ -28,9 +28,9 @@ const Searchform = () => {
         };
         const result = await response.json();
         console.log(result)
+        console.log(result.offers);
     }catch(error){
-        console.error(error.message);
-
+        console.error(error);
         
     }
 
@@ -40,7 +40,7 @@ const Searchform = () => {
       <form className=" flex gap-1.5"
       onSubmit={handleSubmit}>
         <input
-          className="w-full border text-center rounded-sm"
+          className=" min-w-[120px] border text-center rounded-sm px-3 py-2"
           type="text"
           placeholder="Origin"
           name="origin"
@@ -48,7 +48,7 @@ const Searchform = () => {
           onChange={handleChange}
         />
         <input
-          className="w-full border text-center rounded-sm"
+          className=" min-w-[140px] border text-center rounded-sm px-3 py-2"
           type="text"
           placeholder="Destination"
           name="destination"
@@ -58,12 +58,12 @@ const Searchform = () => {
         <input
           type="date"
           name="departureDate"
-          className="w-full border text-center rounded-sm"
+          className="w-full border text-center rounded-sm px-3 py-2"
           value={state.departureDate}
           onChange={handleChange}
         />
         <select
-          className="w-full border text-center rounded-sm"
+          className=" min-w-[140px] border text-center rounded-sm px-3 py-2"
           name="cabinClass"
           value={state.cabinClass}
           onChange={handleChange}
@@ -73,7 +73,7 @@ const Searchform = () => {
           <option value="business">Business</option>
           <option value="first">First</option>
         </select>
-        <button className="border p-2 hover:bg-gray-300 " type="submit">
+        <button className="border hover:bg-gray-300 px-4 py-2 " type="submit">
           {" "}
           Search
         </button>
