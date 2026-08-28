@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 const Searchform = () => {
-  const [state, setState] = useState({
+  const [input, setInput] = useState({
     origin: "",
     destination: "",
     departureDate: "",
@@ -12,7 +12,7 @@ const Searchform = () => {
 
 
   const handleChange = (e) => {
-    setState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
     const handleSubmit = async (e) =>{
     e.preventDefault();
@@ -44,7 +44,7 @@ const Searchform = () => {
           type="text"
           placeholder="Origin"
           name="origin"
-          value={state.origin}
+          value={offers.origin}
           onChange={handleChange}
         />
         <input
@@ -52,20 +52,20 @@ const Searchform = () => {
           type="text"
           placeholder="Destination"
           name="destination"
-          value={state.destination}
+          value={offers.destination}
           onChange={handleChange}
         />
         <input
           type="date"
           name="departureDate"
           className="w-full border text-center rounded-sm px-3 py-2"
-          value={state.departureDate}
+          value={offers.departureDate}
           onChange={handleChange}
         />
         <select
           className=" min-w-[140px] border text-center rounded-sm px-3 py-2"
           name="cabinClass"
-          value={state.cabinClass}
+          value={offers.cabinClass}
           onChange={handleChange}
         >
           <option value="economy">Economy</option>
