@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-const Searchform = () => {
+const Searchform = ({onSearchComplete}) => {
   const [input, setInput] = useState({
     origin: "",
     destination: "",
@@ -20,20 +20,19 @@ const Searchform = () => {
     try{
         const response = await fetch(url,{
             method: "POST",
-            body:JSON.stringify(state),
+            body:JSON.stringify(input),
             headers: { "Content-Type": "application/json" }
         });
         if(!response.ok){
             throw new error(`Response status: ${response.status}`);
         };
+        
         const result = await response.json();
-        console.log(result)
-        console.log(result.offers);
+        onSearchComplete(result)
     }catch(error){
         console.error(error);
         
     }
-
   }
   return (
     <>
@@ -44,7 +43,7 @@ const Searchform = () => {
           type="text"
           placeholder="Origin"
           name="origin"
-          value={offers.origin}
+          value={input.origin}
           onChange={handleChange}
         />
         <input
@@ -52,20 +51,20 @@ const Searchform = () => {
           type="text"
           placeholder="Destination"
           name="destination"
-          value={offers.destination}
+          value={input.destination}
           onChange={handleChange}
         />
         <input
           type="date"
           name="departureDate"
           className="w-full border text-center rounded-sm px-3 py-2"
-          value={offers.departureDate}
+          value={input.departureDate}
           onChange={handleChange}
         />
         <select
           className=" min-w-[140px] border text-center rounded-sm px-3 py-2"
           name="cabinClass"
-          value={offers.cabinClass}
+          value={input.cabinClass}
           onChange={handleChange}
         >
           <option value="economy">Economy</option>
