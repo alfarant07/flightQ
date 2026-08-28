@@ -30,7 +30,8 @@ router.post('/search',async (req,res)=>{
       })
 
       //sending retrieved offers to front end
-    res.json(offers.data);
+      console.log(offers.data.offers)
+    res.json(offers.data.offers);
 
     //catches Duffel API errors and sends 500 response
 } catch(err){
