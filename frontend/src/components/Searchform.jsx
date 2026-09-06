@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { getTodaysDate } from "../../utils/getTodaysDate";
 
 const Searchform = ({onSearchComplete}) => {
   const [input, setInput] = useState({
@@ -57,6 +58,7 @@ const Searchform = ({onSearchComplete}) => {
         <input
           type="date"
           name="departureDate"
+          min={getTodaysDate()}
           className="w-full border text-center rounded-sm px-3 py-2"
           value={input.departureDate}
           onChange={handleChange}
