@@ -6,7 +6,7 @@ const CardList = ({offers}) => {
         <Card offer ={offer}/>
     );
   return (
-    <div className='flex justify-center flex-col items-center'>
+    <div className='flex justify-center flex-col items-center gap-2 bg-gray-50 '>
         {listOffers}
     </div>
   )
