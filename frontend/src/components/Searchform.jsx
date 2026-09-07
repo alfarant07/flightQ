@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { getTodaysDate } from "../../utils/getTodaysDate";
+import { AiOutlineSearch } from "react-icons/ai";
 
-const Searchform = ({onSearchComplete}) => {
+
+const Searchform = ({ onSearchComplete }) => {
   const [input, setInput] = useState({
     origin: "",
     destination: "",
@@ -10,35 +12,31 @@ const Searchform = ({onSearchComplete}) => {
     cabinClass: "",
   });
 
-
-
   const handleChange = (e) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-    const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:4000/api/flights/search"
-    try{
-        const response = await fetch(url,{
-            method: "POST",
-            body:JSON.stringify(input),
-            headers: { "Content-Type": "application/json" }
-        });
-        if(!response.ok){
-            throw new error(`Response status: ${response.status}`);
-        };
-        
-        const result = await response.json();
-        onSearchComplete(result)
-    }catch(error){
-        console.error(error);
-        
+    const url = "http://localhost:4000/api/flights/search";
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!response.ok) {
+        throw new error(`Response status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      onSearchComplete(result);
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
   return (
     <>
-      <form className=" flex gap-1.5"
-      onSubmit={handleSubmit}>
+      <form className=" flex gap-1.5" onSubmit={handleSubmit}>
         <input
           className=" min-w-[120px] border text-center rounded-sm px-3 py-2"
           type="text"
@@ -74,9 +72,14 @@ const Searchform = ({onSearchComplete}) => {
           <option value="business">Business</option>
           <option value="first">First</option>
         </select>
-        <button className="border hover:bg-gray-300 px-4 py-2 " type="submit">
+        <button
+          className="border bg-blue-600 px-4 py-2 text-white hover:bg-blue-500 flex"
+          type="submit" 
+          >
           {" "}
-          Search
+          <h2>Search</h2>
+          <AiOutlineSearch className="mt-1"/>
+
         </button>
       </form>
     </>

@@ -3,7 +3,7 @@ import Searchform from "./Searchform";
 
 const Navbar = () => {
   return (
-    <nav className="py-4 flex bg-gray-200 items-center justify-between">
+    <nav className=" m-2 flex bg-gray-50 items-center justify-between">
       <div className="flex items-center gap-2">
         {" "}
         <SiTheplanetarysociety className="text-2xl" />{" "}
