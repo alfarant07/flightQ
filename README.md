@@ -9,7 +9,6 @@ FlightQ is a full-stack flight search application built to explore real-world fl
 - Displays results as flight cards showing route, departure/arrival time, duration, and price
 - Client-side validation prevents selecting a departure date in the past
 
-### Tech Stack
 
 ## Frontend
 - React (Vite)
