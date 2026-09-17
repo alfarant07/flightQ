@@ -1,6 +1,7 @@
 import express from "express";
 import searchRoutes from "./routes/search.js"
 import cors from "cors"
+import pool from "./db.js"
 
 const app = express();
 app.use(cors());
