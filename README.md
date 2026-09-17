@@ -95,7 +95,7 @@ Response: an array of flight offer objects from Duffel, including price, slices 
 
 ### Roadmap
 
-- [ ] `tracked_searches` table (PostgreSQL) to save searches and track price history
+- [x] `tracked_searches` table (PostgreSQL) to save searches and track price history :)
 - [ ] Cron job to poll saved searches for price drops
 - [ ] Email notifications on new lowest price
 - [ ] Airport/city autocomplete on the search form
