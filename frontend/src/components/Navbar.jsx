@@ -7,7 +7,7 @@ const Navbar = () => {
       <div className="flex items-center gap-2">
         {" "}
         <SiTheplanetarysociety className="text-2xl" />{" "}
-        <h1 className="text-lg">FlightQ</h1>
+        <h1 className="text-lg">FlightStack</h1>
       </div>
       <div className="w-24" aria-hidden="true" />
     </nav>
