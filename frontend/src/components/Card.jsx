@@ -1,9 +1,11 @@
 import React from "react";
 import { parseDuration } from "../../utils/parseDuration";
 import { getFlightTime } from "../../utils/getFlightTime";
-const Card = ({ offer }) => {
+import { LuBookmark } from "react-icons/lu";
+
+const Card=({offer,onBookmarkClick})=>{
   return (
-    <article className="outline-solid  min-w-4xl rounded-sm bg-gray-100 hover:@lg:">
+    <article className="outline-solid  min-w-4xl rounded-2xl bg-gray-100 hover:@lg:">
       <header className="flex justify-between text-xl mt-2 bg-gray-100 p-2">
         <div className="flex">
           <section className="h-10 w-10">
@@ -17,23 +19,28 @@ const Card = ({ offer }) => {
             <h2 className="text-gray-500 text-s ml-2">{offer.owner.name}</h2>
           </section>
         </div>
-          <section className="flex text-gray-500 ml-4 mt-1">
+        <section className="flex text-gray-500 ml-4 mt-1">
           <h2 className="mr-2">{offer.slices[0].origin.iata_code}</h2>
 
-            <h2>{getFlightTime(offer.slices[0].segments[0].departing_at)}</h2>
-            <h2>-</h2>
-            <h2>{getFlightTime(offer.slices[0].segments[0].arriving_at)}</h2>
-            <h2 className="ml-2">{offer.slices[0].destination.iata_code}</h2>
-
-          </section>
+          <h2>{getFlightTime(offer.slices[0].segments[0].departing_at)}</h2>
+          <h2>-</h2>
+          <h2>{getFlightTime(offer.slices[0].segments[0].arriving_at)}</h2>
+          <h2 className="ml-2">{offer.slices[0].destination.iata_code}</h2>
+        </section>
 
         <h2 className="text-m p-2">
           {parseDuration(offer.slices[0].duration)}
         </h2>
       </header>
 
-      <section className="font-asap text-xl text-right m-8 text-green-700">
-        {offer.intended_total_amount}$
+      <section className="flex flex-row justify-end">
+        <h2 className="font-asap text-xl text-right m-2 text-green-700">
+          {offer.intended_total_amount}$
+        </h2>
+        <button className="p-2 rounded-full hover:bg-gray-200 transition-colors text-gray-500 hover:text-gray-800" 
+        onClick={onBookmarkClick}>
+          <LuBookmark size={20} />
+        </button>
       </section>
     </article>
   );
