@@ -1,16 +1,46 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getTodaysDate } from "../../utils/getTodaysDate";
 import { AiOutlineSearch } from "react-icons/ai";
+import axios from "axios";
 
+const PLACES_URL = "http://localhost:4000/api/places/suggestions";
+
+const useSuggestions = (text) => {
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    if(text.length<2){
+      setOptions([]);
+      return;
+
+    }
+    const timer = setTimeout(async () => {
+      try {
+        const response = await axios.get(PLACES_URL, { params: { query: text } });
+        setOptions(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      //console.log(text);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [text]);
+  return options;
+};
 
 const Searchform = ({ onSearchComplete }) => {
   const [input, setInput] = useState({
     origin: "",
     destination: "",
     departureDate: "",
-    cabinClass: "",
+    cabinClass: "economy",
   });
+  const originOptions = useSuggestions(input.origin);
+  const destinationOptions = useSuggestions(input.destination);
+  //console.log(originOptions)
+
 
   const handleChange = (e) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -25,7 +55,7 @@ const Searchform = ({ onSearchComplete }) => {
         headers: { "Content-Type": "application/json" },
       });
       if (!response.ok) {
-        throw new error(`Response status: ${response.status}`);
+        throw new Error(`Response status: ${response.status}`);
       }
 
       const result = await response.json();
@@ -44,7 +74,15 @@ const Searchform = ({ onSearchComplete }) => {
           name="origin"
           value={input.origin}
           onChange={handleChange}
+          list="origin-options"
         />
+        <datalist id="origin-options">
+        {originOptions.map((place)=>(
+          <option key={place.iata_code + place.type} value={place.iata_code}>
+            {place.name}
+          </option>
+        ))}
+        </datalist>
         <input
           className=" min-w-[140px] border text-center rounded-sm px-3 py-2"
           type="text"
@@ -52,7 +90,15 @@ const Searchform = ({ onSearchComplete }) => {
           name="destination"
           value={input.destination}
           onChange={handleChange}
+          list="dest-options"
         />
+         <datalist id="dest-options">
+        {destinationOptions.map((place)=>(
+          <option key={place.iata_code + place.type} value={place.iata_code}>
+            {place.name}
+          </option>
+        ))}
+        </datalist>
         <input
           type="date"
           name="departureDate"
@@ -74,12 +120,11 @@ const Searchform = ({ onSearchComplete }) => {
         </select>
         <button
           className="border bg-blue-600 px-4 py-2 text-white hover:bg-blue-500 flex"
-          type="submit" 
-          >
+          type="submit"
+        >
           {" "}
           <h2>Search</h2>
-          <AiOutlineSearch className="mt-1"/>
-
+          <AiOutlineSearch className="mt-1" />
         </button>
       </form>
     </>
