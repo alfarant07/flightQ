@@ -97,7 +97,7 @@ const Searchform = ({ onSearchComplete }) => {
           type="date"
           name="departureDate"
           min={getTodaysDate()}
-          className="w-full border text-center rounded-sm px-3 py-2"
+          className="w-44 border text-center rounded-sm px-3 py-2"
           value={input.departureDate}
           onChange={handleChange}
         />
