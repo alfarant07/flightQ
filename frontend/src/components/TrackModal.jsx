@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const TrackModal = ({ offer, onClose }) => {
   const [email, setEmail] = useState("");
@@ -17,14 +18,7 @@ const TrackModal = ({ offer, onClose }) => {
         email: email,
         price: offer.intended_total_amount,
       };
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(resData),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new error(`Response status: ${response.status}`);
-      }
+      const response =await axios.post(url,resData);
       onClose();   // only reached on success
     } catch (error) {
       console.error(error);

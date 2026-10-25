@@ -26,7 +26,7 @@ const useSuggestions = (text) => {
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [text]);
+  }, [text]); //dependency arraya to tell react when to run 
   return options;
 };
 
@@ -40,6 +40,7 @@ const Searchform = ({ onSearchComplete }) => {
   const originOptions = useSuggestions(input.origin);
   const destinationOptions = useSuggestions(input.destination);
   //console.log(originOptions)
+  //data list gives dropdown f suggestions list must = datalist id
 
 
   const handleChange = (e) => {
@@ -49,17 +50,10 @@ const Searchform = ({ onSearchComplete }) => {
     e.preventDefault();
     const url = "http://localhost:4000/api/flights/search";
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(input),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
+      const response = await axios.post(url, input);
 
-      const result = await response.json();
-      onSearchComplete(result);
+      console.log(response);
+      onSearchComplete(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -76,7 +70,7 @@ const Searchform = ({ onSearchComplete }) => {
           onChange={handleChange}
           list="origin-options"
         />
-        <datalist id="origin-options">
+        <datalist id="origin-options"> 
         {originOptions.map((place)=>(
           <option key={place.iata_code + place.type} value={place.iata_code}>
             {place.name}
