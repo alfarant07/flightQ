@@ -1,5 +1,5 @@
 import { SiTheplanetarysociety } from "react-icons/si";
-import Searchform from "./Searchform";
+import {Link} from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -7,7 +7,9 @@ const Navbar = () => {
       <div className="flex items-center gap-2">
         {" "}
         <SiTheplanetarysociety className="text-2xl" />{" "}
-        <h1 className="text-lg">FlightStack</h1>
+        <Link to="/" className="text-lg font-bold">
+          FlightStack
+        </Link>
       </div>
       <div className="w-24" aria-hidden="true" />
     </nav>
