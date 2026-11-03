@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const TrackModal = ({ offer, onClose }) => {
@@ -18,10 +18,12 @@ const TrackModal = ({ offer, onClose }) => {
         email: email,
         price: offer.intended_total_amount,
       };
-      const response =await axios.post(url,resData);
+      await axios.post(url,resData);
       onClose();   // only reached on success
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -46,7 +48,8 @@ const TrackModal = ({ offer, onClose }) => {
         </div>
         <input
           className="min-w-[120px] border text-center rounded-sm px-3 py-2"
-          type="text"
+          type="email"
+          required
           placeholder="email"
           name="email"
           value={email}
