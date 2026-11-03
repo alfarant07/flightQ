@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { getTodaysDate } from "../../utils/getTodaysDate";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -10,11 +9,7 @@ const useSuggestions = (text) => {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    if(text.length<2){
-      setOptions([]);
-      return;
-
-    }
+    if (text.length < 2) return;
     const timer = setTimeout(async () => {
       try {
         const response = await axios.get(PLACES_URL, { params: { query: text } });
@@ -27,7 +22,8 @@ const useSuggestions = (text) => {
 
     return () => clearTimeout(timer);
   }, [text]); //dependency arraya to tell react when to run 
-  return options;
+  // derive empty list during render instead of setting state in the effect
+  return text.length < 2 ? [] : options;
 };
 
 const Searchform = ({ onSearchComplete }) => {
