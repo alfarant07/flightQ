@@ -4,6 +4,7 @@ import cors from "cors"
 import pool from "./db.js"
 import trackRoutes from "./routes/track.js"
 import autoFill from "./routes/autofill.js";
+import signup from "./routes/signup.js";
 
 const app = express();
 app.use(cors());
@@ -25,3 +26,5 @@ app.use('/api/flights', searchRoutes);
 app.use('/api',trackRoutes);
 
 app.use('/api',autoFill);
+
+app.use('/api', signup);
